@@ -129,13 +129,17 @@ docker compose up --build
 - **Native**: ~1秒（直接実行）
 - **Docker**: ~30秒（初回ビルド時）、~5秒（2回目以降）
 
-#### メモリ使用量
-- **Native**: ~50MB（Node.js + Express）
-- **Docker**: ~200MB（コンテナ + Node.js + Express）
+#### メモリ使用量（実測値）
+- **Native**: ~38MB（Node.js + Express）
+- **Docker**: ~38MB（アプリコンテナ20MB + DBコンテナ18MB）
 
-#### ディスク使用量
-- **Native**: ~100MB（node_modules）
-- **Docker**: ~500MB（イメージ + node_modules）
+#### ディスク使用量（実測値）
+- **Native**: ~4.7MB（プロジェクト全体、node_modules: 4.6MB）
+- **Docker**: ~846MB（アプリイメージ196MB + PostgreSQLイメージ650MB）
+
+#### 測定方法
+- **メモリ使用量**: `ps aux | grep node`（Native）、`docker stats --no-stream`（Docker）
+- **ディスク使用量**: `du -sh .`（Native）、`docker system df`（Docker）
 
 ### 6. 開発ワークフロー
 
